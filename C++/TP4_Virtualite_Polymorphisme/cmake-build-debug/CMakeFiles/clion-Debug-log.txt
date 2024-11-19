@@ -1,0 +1,4 @@
+"C:\Users\01ism\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/01ism/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\01ism\OneDrive\Desktop\Programas\C++\TP4_Virtualite_Polymorphisme -B C:\Users\01ism\OneDrive\Desktop\Programas\C++\TP4_Virtualite_Polymorphisme\cmake-build-debug
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/01ism/OneDrive/Desktop/Programas/C++/TP4_Virtualite_Polymorphisme/cmake-build-debug

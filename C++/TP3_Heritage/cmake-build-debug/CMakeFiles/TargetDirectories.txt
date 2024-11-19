@@ -1,0 +1,3 @@
+C:/Users/01ism/OneDrive/Desktop/Programas/C++/TP3_Heritage/cmake-build-debug/CMakeFiles/TP3_Heritage.dir
+C:/Users/01ism/OneDrive/Desktop/Programas/C++/TP3_Heritage/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/01ism/OneDrive/Desktop/Programas/C++/TP3_Heritage/cmake-build-debug/CMakeFiles/rebuild_cache.dir
