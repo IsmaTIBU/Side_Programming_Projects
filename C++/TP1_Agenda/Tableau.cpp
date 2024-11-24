@@ -4,9 +4,7 @@
 #include <string>
 using namespace std;
 
-Tableau::Tableau(int taille_tab) {
-    this->taille_tot_tab = taille_tab;
-    this->tableau_entree = new Entree[taille_tot_tab];
+Tableau::Tableau(int taille_tab):taille_tot_tab(taille_tab),tableau_entree(new Entree[taille_tot_tab]) {
     this->nb_elem = 0;
 }
 
@@ -14,10 +12,7 @@ Tableau::~Tableau() {
     delete []tableau_entree; //Liberation de memoire
 }
 
-Tableau::Tableau(Tableau& copie) {
-    this->taille_tot_tab = copie.taille_tot_tab;
-    this->tableau_entree=new Entree[taille_tot_tab];
-    this->nb_elem=copie.nb_elem;
+Tableau::Tableau(Tableau& copie):taille_tot_tab(copie.taille_tot_tab),tableau_entree(new Entree[taille_tot_tab]), nb_elem(copie.nb_elem) {
     for (int i = 0; i < nb_elem; i++) {
         this->tableau_entree[i]=copie.tableau_entree[i];
     }
@@ -76,10 +71,10 @@ void Tableau::supp_nom(string nom) {
     }
 }
 
-int Tableau::getNbElem(){
+int Tableau::getNbElem() const{
     return nb_elem; // Retourne le nombre d'éléments
 }
 
-int Tableau::getTailleTot(){
+int Tableau::getTailleTot() const{
     return taille_tot_tab; // Retourne la taille totale
 }

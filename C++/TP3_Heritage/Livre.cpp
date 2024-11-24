@@ -3,14 +3,10 @@
 using namespace std;
 
 Livre::Livre(string &titre, string *resume, string auteur,
-             string editeur, int anneeParution): Document(titre, resume, auteur) {
-    this->editeur = editeur;
-    this->anneeParution = anneeParution;
+             string editeur, int anneeParution): Document(titre, resume, auteur), editeur(editeur),anneeParution(anneeParution) {
 }
 
-Livre::Livre(const Livre &copie): Document(copie) {
-    this->editeur = copie.editeur;
-    this->anneeParution = copie.anneeParution;
+Livre::Livre(const Livre &copie): Document(copie), editeur(copie.editeur), anneeParution(copie.anneeParution) {
 }
 
 Livre *Livre::clone() const {

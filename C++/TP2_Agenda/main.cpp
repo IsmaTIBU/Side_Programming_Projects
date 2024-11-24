@@ -7,13 +7,12 @@ int main() {
     // Créer un objet de la classe Agenda avec une capacité de 3 pour l'agenda 1, 2 pour l'agenda 2
     Agenda a1(3);
     Agenda a2(2);
-    Agenda a3;
 
     // Ajouter des entrées à l'agenda en utilisant l'opérateur +=
-    a1 += make_pair("Ismael", "+34 689007389");
-    a1 += make_pair("Alice", "+34 612345678");
-    a2 += make_pair("Bob", "+34 612345679");
-    a2 += make_pair("Charlie", "+34 612345680");
+    a1 += Entree("Ismael", "+34 689007389");
+    a1 += Entree("Alice", "+34 612345678");
+    a2 += Entree("Bob", "+34 612345679");
+    a2 += Entree("Charlie", "+34 612345680");
 
     // Afficher le contenu de l'agenda en utilisant l'opérateur <<
     cout << "Contenu de l'agenda 1:\n" << a1;

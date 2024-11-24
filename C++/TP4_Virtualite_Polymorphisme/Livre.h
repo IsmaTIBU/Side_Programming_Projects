@@ -9,7 +9,7 @@ class Livre : public Document {
     int anneeParution;
 
 public:
-    Livre(string& titre, string* resume, string auteur,string editeur, int anneeParution, double prix_de_base);
+    Livre(string& titre, string* resume, string auteur,string editeur, int anneeParution);
     Livre(const Livre& copie);
     Livre* clone() const override;
     void afficher() const override;

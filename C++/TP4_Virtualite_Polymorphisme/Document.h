@@ -9,21 +9,14 @@ protected:
     string& titre;
     string* resume;
     string auteur;
-    double prix_de_base;
 
 public:
-    Document(string& titre, string* resume,string auteur, double prix_de_base);
+    Document(string& titre, string* resume,string auteur);
     virtual void afficher() const = 0;
     virtual Document* clone() const = 0;
-    virtual double calculerCout() const = 0;
+    virtual double calculerCout() const=0;
 
-    virtual const string& getTitre() const {
-        return titre;
-    }
-
-    virtual double getPrix() const {
-        return prix_de_base;
-    }
+    virtual const string& getTitre() const;
 };
 
 #endif // DOCUMENT_H

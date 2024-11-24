@@ -3,6 +3,7 @@
 #include "Article.h"
 using namespace std;
 
+
 int main() {
     //Creation d'un DOCUMENT
     string resume0 = "C est un langage de programation...";

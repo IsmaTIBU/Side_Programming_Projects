@@ -22,8 +22,8 @@ public:
     void ajouter(string nom, string num_tel);
     void supp_all(string nom, string num_tel);
     void supp_nom(string nom);
-    int getNbElem();
-    int getTailleTot();
+    int getNbElem() const;
+    int getTailleTot() const;
 
     friend class Agenda;
 };

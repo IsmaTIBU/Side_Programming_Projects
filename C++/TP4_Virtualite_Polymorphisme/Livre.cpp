@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Livre::Livre(string& titre, string* resume, string auteur, string editeur, int anneeParution, double prix_de_base)
-    : Document(titre, resume, auteur, prix_de_base), editeur(editeur), anneeParution(anneeParution) {}
+Livre::Livre(string& titre, string* resume, string auteur, string editeur, int anneeParution)
+    : Document(titre, resume, auteur), editeur(editeur), anneeParution(anneeParution) {}
 
 Livre::Livre(const Livre& copie)
     : Document(copie), editeur(copie.editeur), anneeParution(copie.anneeParution) {}
@@ -27,6 +27,6 @@ const string& Livre::getTitre() const {
 }
 
 double Livre::calculerCout() const {
-    double prix_final=prix_de_base+(2024-anneeParution)*1.1;
+    double prix_final=7+(2024-anneeParution)*1.1;
     return prix_final;
 }

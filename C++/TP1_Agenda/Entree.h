@@ -16,8 +16,8 @@ public:
     friend class Tableau;
 
     //Rajoutés pour que la concaténation marche bien
-    string getNom();
-    string getNumTel();
+    string getNom() const;
+    string getNumTel() const;
 };
 
 

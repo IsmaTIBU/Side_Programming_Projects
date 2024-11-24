@@ -20,7 +20,7 @@ public:
     void affichage() const;
 
     friend ostream& operator<<(ostream& os, const Agenda& agenda);
-    Agenda& operator+=(const pair<string, string>& entree);
+    Agenda& operator+=(const Entree& entree);
     Agenda& operator|=(const Agenda& autre);
     Agenda& operator=(const Agenda& autre);
     Agenda operator+(const Agenda& copie) const;

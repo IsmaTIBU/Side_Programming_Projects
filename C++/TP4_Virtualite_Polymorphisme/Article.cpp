@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Article::Article(string& titre, string auteur, string* resume, string revue, string editeur, int num_edit, double prix_de_base)
-    : Document(titre, resume, auteur, prix_de_base), revue(revue), editeur(editeur), num_edit(num_edit) {}
+Article::Article(string& titre, string auteur, string* resume, string revue, string editeur, int num_edit)
+    : Document(titre, resume, auteur), revue(revue), editeur(editeur), num_edit(num_edit) {}
 
 Article::Article(const Article& copie)
     : Document(copie), revue(copie.revue), editeur(copie.editeur), num_edit(copie.num_edit) {}
@@ -28,6 +28,6 @@ const string& Article::getTitre() const {
 }
 
 double Article::calculerCout() const {
-    double prix_final=prix_de_base+(num_edit)*1.1;
+    double prix_final=3+(num_edit)*1.1;
     return prix_final;
 }

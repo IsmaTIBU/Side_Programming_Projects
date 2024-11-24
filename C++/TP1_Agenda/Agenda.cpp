@@ -5,19 +5,17 @@
 #include <string>
 using namespace std;
 
-Agenda::Agenda(int taille){
-    this->tab=Tableau(taille);
+Agenda::Agenda(int taille): tab(Tableau(taille)){
 }
 
-Agenda::Agenda(Agenda& copie) {
-    this->tab = copie.tab;
+Agenda::Agenda(Agenda& copie):tab(copie.tab) {
 }
 
 void Agenda::concat(Agenda& a2) {
     int nbElemA2 = a2.tab.getNbElem();  // Número de elementos en la agenda a concatenar (a2)
 
     for (int i = 0; i < nbElemA2; i++) {
-        tab.ajouter(a2.tab.tableau_entree[i].getNom(), a2.tab.tableau_entree[i].getNumTel());
+        this->tab.ajouter(a2.tab.tableau_entree[i].getNom(), a2.tab.tableau_entree[i].getNumTel());
     }
 }
 

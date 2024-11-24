@@ -16,7 +16,6 @@ public:
     Article* clone() const;
     void afficher();
     Article& operator=(const Article& autre);
-
 };
 
 #endif // ARTICLE_H

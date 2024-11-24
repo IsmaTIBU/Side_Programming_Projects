@@ -49,10 +49,11 @@ ostream& operator<<(ostream& os, const Agenda& agenda) {
 }
 
 
-Agenda& Agenda::operator+=(const pair<string, string>& entree) {
-    this->ajouter(entree.first, entree.second);
+Agenda& Agenda::operator+=(const Entree& entree) {
+    this->ajouter(entree.getNom(), entree.getNumTel());
     return *this;
 }
+
 
 Agenda& Agenda::operator|=(const Agenda& autre){
     this->concat(autre);

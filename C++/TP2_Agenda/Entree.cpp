@@ -2,9 +2,7 @@
 #include "Entree.h"
 using namespace std;
 
-Entree::Entree(string nom,string num_tel) {
-    this->nom=nom;
-    this->num_tel=num_tel;
+Entree::Entree(string nom,string num_tel):nom(nom),num_tel(num_tel) {
 }
 
 void Entree::affichage() const {

@@ -2,14 +2,10 @@
 #include <iostream>
 using namespace std;
 
-Document::Document(string& titre, string* resume, string auteur): titre(titre){
-    this-> auteur = auteur;
-    this->resume = new string(*resume);
+Document::Document(string& titre, string* resume, string auteur): titre(titre), auteur(auteur), resume(new string(*resume)){
 }
 
-Document::Document(const Document &copie): titre(copie.titre){
-    this-> auteur = copie.auteur;
-    this->resume = new string(*copie.resume);
+Document::Document(const Document &copie): titre(copie.titre), auteur(copie.auteur), resume(new string(*copie.resume)){
 }
 
 Document* Document::clone() const {

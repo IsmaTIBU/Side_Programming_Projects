@@ -10,7 +10,7 @@ class Article : public Document {
     int num_edit;
 
 public:
-    Article(string& titre,string auteur,string* resume,string revue,string editeur, int num_edit, double prix_de_base);
+    Article(string& titre,string auteur,string* resume,string revue,string editeur, int num_edit);
     Article(const Article& copie);
     Article* clone() const override;
     void afficher() const override;
