@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, adjusted_rand_score
 from scipy.stats import multivariate_normal
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
@@ -44,8 +44,11 @@ plt.show()
 Classif = KMeans(n_clusters=len(np.unique(y_apprentissage)), random_state=42)
 Classif.fit(X_apprentissage)
 y_predict = Classif.predict(X_test)
-precision_kmeans = accuracy_score(y_test, y_predict)
-print(f"Taux de reussite sur le KMeans : {precision_kmeans:.2f}")
+precision_kmeans1 = accuracy_score(y_test, y_predict)              #0.08 de taux de reussite
+precision_kmeans2 = adjusted_rand_score(y_test, y_predict)           #0.78 de taux de reussite
+print(f"\nTaux de reussite sur le KMeans avec accuracy_score: {precision_kmeans1:.2f}")
+print(f"Taux de reussite sur le KMeans avec adjusted_rand_score: {precision_kmeans2:.2f}")
+
 
 # Matrice de confusion pour KMeans
 cm_kmeans = confusion_matrix(y_test, y_predict)
@@ -58,7 +61,7 @@ Classif = MLPClassifier(hidden_layer_sizes=(100,), max_iter=1000, random_state=4
 Classif.fit(X_apprentissage, y_apprentissage)
 y_predict = Classif.predict(X_test)
 precision_mlp = accuracy_score(y_test, y_predict)
-print(f"Taux de reussite sur la Perceptron Multicouche : {precision_mlp:.2f}")
+print(f"\nTaux de reussite sur la Perceptron Multicouche : {precision_mlp:.2f}")
 
 # Matrice de confusion pour Perceptron Multicouche
 cm_mlp = confusion_matrix(y_test, y_predict)
