@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 date = 20231130
 chemin_fichiers = "./Signaux"  # Modifier selon ton chemin
 
+
 # --- Fonction pour calculer les MFCC utilisables pour l'AFD ---
 def calculer_mfcc_pour_afd_librosa(chemin_fichiers):
     fichiers_audio = [f for f in os.listdir(chemin_fichiers) if f.endswith(".wav")]
@@ -29,11 +30,17 @@ def calculer_mfcc_pour_afd_librosa(chemin_fichiers):
         chemin_complet = os.path.join(chemin_fichiers, fichier)
         echantillons, fe = librosa.load(chemin_complet, sr=None)
 
-        # Calcul des coefficients MFCC
-        mfcc_coeffs = librosa.feature.mfcc(y=echantillons, sr=fe, n_mfcc=13, n_fft=512)
+        # Durée totale du signal en secondes
+        winlen = len(echantillons) / fe
+        winstep = winlen  # Pas de décalage, une seule fenêtre
 
-        # Moyenne des coefficients sur toutes les trames
-        mfcc_moyen = np.mean(mfcc_coeffs, axis=1)
+        # Calcul des coefficients MFCC
+        VecteurCoefficients = librosa.feature.mfcc(
+            y=echantillons, sr=fe, n_mfcc=13, hop_length=len(echantillons), n_fft=512
+        )
+
+        # Extraire le vecteur (un seul jeu de coefficients)
+        mfcc_moyen = VecteurCoefficients[:, 0]  # Une seule fenêtre
         mfcc_matrice.append(mfcc_moyen)
 
         # Récupération du label depuis le préfixe du fichier
@@ -43,7 +50,67 @@ def calculer_mfcc_pour_afd_librosa(chemin_fichiers):
         else:
             print(colored(f"Préfixe inconnu pour le fichier {fichier}. Ignoré.", "yellow"))
 
+    # Conversion en matrice numpy
     return np.array(mfcc_matrice), np.array(labels), prefixes
+
+
+# --- Calcul des coefficients cepstraux ---
+def calculer_cepstre(echantillons):
+    print("Calcul des coefficients cepstraux...")
+    # Transformée de Fourier
+    tf_signal = np.fft.fft(echantillons)
+
+    # Calcul du logarithme du module
+    log_magnitude = np.log(np.abs(tf_signal) + 1e-10)  # Ajout d'un epsilon pour éviter log(0)
+
+    # Transformée de Fourier inverse
+    cepstre = np.fft.ifft(log_magnitude).real
+
+    # Affichage du cepstre
+    plt.figure()
+    plt.plot(cepstre)
+    plt.title("Coefficients Cepstraux")
+    plt.xlabel("Quefrence")
+    plt.ylabel("Amplitude")
+    plt.grid()
+    plt.show()
+
+    return cepstre
+
+
+# --- Analyse du signal : représentation temporelle et DSP ---
+def analyser_signal_temporel_frequentiel(chemin_fichier):
+    # Charger le fichier audio
+    echantillons, fe = librosa.load(chemin_fichier, sr=None)
+
+    # Représentation temporelle
+    plt.figure(1)
+    plt.plot(echantillons)
+    plt.title("Représentation temporelle du signal")
+    plt.xlabel("Temps (échantillons)")
+    plt.ylabel("Amplitude")
+    plt.grid()
+
+    # Transformée de Fourier et calcul de la DSP
+    tf_signal = np.fft.fft(echantillons)
+    dsp = np.multiply(tf_signal, np.conj(tf_signal)).real  # Partie réelle de la DSP
+
+    # Axe des fréquences
+    freqs = np.fft.fftfreq(len(dsp), 1 / fe)
+
+    # Représentation fréquentielle (DSP)
+    plt.figure(2)
+    plt.plot(freqs[:len(freqs) // 2], dsp[:len(dsp) // 2])  # Partie positive des fréquences
+    plt.title("Densité Spectrale de Puissance")
+    plt.xlabel("Fréquence (Hz)")
+    plt.ylabel("Puissance")
+    plt.grid()
+
+    plt.show()
+
+    # Calcul des coefficients cepstraux
+    calculer_cepstre(echantillons)
+
 
 # --- Appliquer l'AFD avec corrections pour les centres de gravité ---
 def appliquer_afd_custom_librosa(mfcc_matrice, labels, prefixes):
@@ -51,11 +118,10 @@ def appliquer_afd_custom_librosa(mfcc_matrice, labels, prefixes):
         print("Les données ou les labels sont manquants.")
         return
 
-    print("Application de l'Analyse Factorielle Discriminante (AFD) avec les fonctions personnalisées...")
+    print("\nApplication de l'Analyse Factorielle Discriminante (AFD) avec les fonctions personnalisées...")
 
     # Calcul des centres de gravité (données brutes, non centrées)
     CentresGravite = CalculerCentresGravite(mfcc_matrice, labels)
-    print("Centres de gravité calculés :", CentresGravite)
 
     # Calcul des individus centrés réduits
     mfcc_centres_red = CalculerIndividusCentresReduits(mfcc_matrice, CentresGravite)
@@ -64,17 +130,24 @@ def appliquer_afd_custom_librosa(mfcc_matrice, labels, prefixes):
     CentresGraviteReduits = CalculerCentresGravite(mfcc_centres_red, labels)
 
     # Calcul des variances (pour validation)
-    VT, VA, VE = CalculerVariances(mfcc_matrice, labels, CentresGravite)
+    VT, VA, VE = CalculerVariances(mfcc_centres_red, labels, CentresGraviteReduits)
+
     print(f"Variances: Totale={VT:.2f}, Intraclasses={VA:.2f}, Interclasses={VE:.2f}")
 
+    # Visualisation en 2D
     # Visualisation en 2D
     PresenterClasses2D(
         mfcc_centres_red,
         labels,
         "Projection AFD (individus centrés réduits)",
         CentresGravite=CentresGraviteReduits,
-        prefixes=prefixes
+        prefixes=prefixes,
+        ParamX=2,
+        ParamY=3
     )
+
+    return mfcc_centres_red
+
 
 # --- Fonction de visualisation en 2D ---
 def PresenterClasses2D(Individus, NoClasses, Titre, CentresGravite=[], ParamX=2, ParamY=3, prefixes=[]):
@@ -95,7 +168,7 @@ def PresenterClasses2D(Individus, NoClasses, Titre, CentresGravite=[], ParamX=2,
             Individus[IndClasse, ParamX],
             Individus[IndClasse, ParamY],
             color=couleurs[(q - 1) % len(couleurs)],
-            label=f"Classe {q} : {prefixes[q-1]}"
+            label=f"Classe {q} : {prefixes[q - 1]}"
         )
 
     # Affichage des centres de gravité (croix noires)
@@ -116,8 +189,20 @@ def PresenterClasses2D(Individus, NoClasses, Titre, CentresGravite=[], ParamX=2,
     plt.grid()
     plt.show()
 
-# --- Exécution ---
-mfcc_matrice, labels, prefixes = calculer_mfcc_pour_afd_librosa(chemin_fichiers)
 
-if mfcc_matrice is not None and labels is not None:
+# --- Exécution ---
+fichiers_audio = [f for f in os.listdir(chemin_fichiers) if f.endswith(".wav")]
+
+if fichiers_audio:
+    print("Analyse temporelle et fréquentielle du premier fichier...")
+    analyser_signal_temporel_frequentiel(os.path.join(chemin_fichiers, fichiers_audio[0]))
+
+    print("Calcul des MFCC et application de l'AFD...")
+    mfcc_matrice, labels, prefixes = calculer_mfcc_pour_afd_librosa(chemin_fichiers)
+
     appliquer_afd_custom_librosa(mfcc_matrice, labels, prefixes)
+    # Renvoyer les données pour utilisation dans d'autres scripts
+    mfcc_centres_red = CalculerIndividusCentresReduits(mfcc_matrice, CalculerCentresGravite(mfcc_matrice, labels))
+
+else:
+    print(colored("Aucun fichier audio trouvé pour l'analyse.", "red"))
