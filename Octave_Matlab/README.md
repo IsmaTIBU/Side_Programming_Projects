@@ -1,4 +1,4 @@
-# Articular Command of an RP Type Robotic Manipulator 
+# Articular Command of an RP Type Robotic Manipulator (Com_Rob)
 
 This project focuses on simulating various control strategies for a simple RP-type robotic manipulator using MATLAB-SIMULINK. The objective is to develop and test control schemes for the joint variables of the robot to follow predefined trajectories. 
 
