@@ -8,7 +8,8 @@ The manipulator consists of:
 - **Rotational Joint (R):** Allows the first link to rotate around the vertical axis.
 - **Prismatic Joint (P):** Enables linear motion of the second link.
 
-The goal is to control the variables \(q_1(t)\) and \(q_2(t)\) to follow predefined profiles combining uniform acceleration, constant velocity, and uniform deceleration. The desired configurations for the manipulator start at \((q_1(t_0) = 0, q_2(t_0) = 0.5)\) and end at \((q_1(t_1) = \pi/2, q_2(t_1) = 1)\).
+The goal is to control the variables q1(t) and q2(t) to follow predefined profiles combining uniform acceleration, constant velocity, and uniform deceleration. The desired configurations for the manipulator start at (q1(t0) = 0, q2(t0) = 0.5) and end at (q1(t1) = π/2, q2(t1) = 1).
+
 
 ## Key Components
 
