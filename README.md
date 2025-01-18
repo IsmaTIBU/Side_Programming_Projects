@@ -21,7 +21,8 @@ The projects in this repository utilize:
 - MATLAB/Octave for precise simulations and mathematical computations.
 
 ## 🤝 Collaboration
-While most of these projects are individual or assigned during coursework, some were developed collaboratively with peers, showcasing teamwork and collaborative problem-solving.
+While most of these projects are individual or assigned during coursework, some were developed collaboratively with peers, showcasing teamwork and collaborative problem-solving. These represent the most complete and complex projects I have worked on, and they can be found directly in the list of my popular repositories.
+
 
 Feel free to explore and learn from these projects. If you have any questions or suggestions, don't hesitate to reach out!
 
