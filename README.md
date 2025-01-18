@@ -25,5 +25,3 @@ While most of these projects are individual or assigned during coursework, some 
 
 Feel free to explore and learn from these projects. If you have any questions or suggestions, don't hesitate to reach out!
 
----
-_Ismael Monge Rouchdi_
