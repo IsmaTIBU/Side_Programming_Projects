@@ -1,6 +1,8 @@
+[Clickez ici pour lire le document traduit au français](fr_README.md)
+
 # Programming Projects Repository
 
-This repository serves as a collection of the programming projects developed throughout my academic journey in fields such as robotics, artificial intelligence, and software engineering. It includes assignments and personal developments primarily conducted during my Master's degree studies. Below is a brief overview of what you'll find here:
+This repository serves as a collection of the programming projects developed throughout my academic journey in fields such as robotics, artificial intelligence, and software engineering, some are not finished or in progress. It includes assignments and personal developments primarily conducted during my Master's degree studies. Below is a brief overview of what you'll find here:
 
 ## Structure
 The repository is divided into three main sections based on the programming languages and tools used:
